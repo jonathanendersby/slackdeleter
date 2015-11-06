@@ -4,8 +4,8 @@ import time
 
 
 # Your Settings Here
-WEEKS = 30  # How many weeks old must a file be to be considered.
-MB = 2  # How big must a file be in order to be considered.
+WEEKS = 2  # How many weeks old must a file be to be considered.
+MB = 4  # How big must a file be in order to be considered.
 TOKEN = "YOUR-SLACK-TOKEN-HERE"  # Look at https://api.slack.com/web#authentication
 REALLY_DELETE = False  # Set to True to actually delete files, otherwise it's a dry run.
 
@@ -16,7 +16,14 @@ threshold = datetime.now() - timedelta(weeks=WEEKS)
 unixtime = time.mktime(threshold.timetuple())
 params = {'token': TOKEN, 'ts_to': unixtime, 'page': 1}
 
-print "Fetching Files with %s" % params
+print "\nCriteria: Looking for files %s weeks old and larger than %s MB." % (WEEKS, MB)
+
+if not REALLY_DELETE:
+    print "\n########################################  DRY RUN  ########################################"
+    print "  Nothing is really being deleted. Set REALLY_DELETE = True to delete files for realsies."
+    print "###########################################################################################"
+
+print "\nFetching Files with %s" % params
 
 result = requests.get('https://slack.com/api/files.list', params=params)
 json = result.json()
@@ -30,16 +37,11 @@ for i in range(2, pages+1):
     json = result.json()
     files += json['files']
 
-print "\n%s files match your age criteria." % len(files)
+print "\n%s files match your age criteria.\n" % len(files)
 
 params = {'token': TOKEN}
 
 total_bytes_deleted = 0
-
-if not REALLY_DELETE:
-    print "\n########################################  DRY RUN  ########################################"
-    print "  Nothing is really being deleted. Set REALLY_DELETE = True to delete files for realsies."
-    print "##########################################################################################\n"
 
 for f in files:
     if f['size'] > MB * 1000000:
