@@ -6,6 +6,13 @@ $ python delete.py
 
 Edit the 4 config lines to configure how this script behaves. By default it runs in Dry Run mode.
 
+```python
+WEEKS = 30  # How many weeks old must a file be to be considered.
+MB = 2  # How big must a file be in order to be considered.
+TOKEN = "YOUR-SLACK-TOKEN-HERE"  # Look at https://api.slack.com/web#authentication
+REALLY_DELETE = False  # Set to True to actually delete files, otherwise it's a dry run.
+```
+
 # Example Output
 <pre>
 $ python delete.py
