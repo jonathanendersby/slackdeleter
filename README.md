@@ -45,7 +45,7 @@ Criteria: Looking for files 2 weeks old and larger than 4 MB.
   Nothing is really being deleted. Set REALLY_DELETE = True to delete files for realsies.
 ###########################################################################################
 
-Fetching Files with {'token': 'xoxp-2524370452-3396924721-14035506230-26ec1ff1', 'ts_to': 1445615554.0, 'page': 1}
+Fetching Files with {'token': 'XXX', 'ts_to': 1445615554.0, 'page': 1}
 Fetching Files with {'token': 'XXX', 'ts_to': 1445615554.0, 'page': 2}
 Fetching Files with {'token': 'XXX', 'ts_to': 1445615554.0, 'page': 3}
 Fetching Files with {'token': 'XXX', 'ts_to': 1445615554.0, 'page': 4}
