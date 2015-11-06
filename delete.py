@@ -1,11 +1,12 @@
 import requests
 from datetime import datetime, timedelta
 import time
+import sys
 
 
 # Your Settings Here
-WEEKS = 6  # How many weeks old must a file be to be considered.
-MB = 10  # How big must a file be in order to be considered.
+WEEKS = 2  # How many weeks old must a file be to be considered.
+MB = 4  # How big must a file be in order to be considered.
 TOKEN = "YOUR-SLACK-TOKEN-HERE"  # Look at https://api.slack.com/web#authentication
 REALLY_DELETE = False  # Set to True to actually delete files, otherwise it's a dry run.
 
@@ -27,6 +28,13 @@ print "\nFetching Files with %s" % params
 
 result = requests.get('https://slack.com/api/files.list', params=params)
 json = result.json()
+
+if not json['ok']:
+    print "Is that a valid TOKEN?"
+    print json
+    sys.exit(99)
+
+
 pages = json['paging']['pages']
 files = json['files']
 
