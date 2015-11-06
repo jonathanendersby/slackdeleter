@@ -5,8 +5,8 @@ import sys
 
 
 # Your Settings Here
-WEEKS = 2  # How many weeks old must a file be to be considered.
-MB = 4  # How big must a file be in order to be considered.
+WEEKS = 6  # How many weeks old must a file be to be considered.
+MB = 10  # How big must a file be in order to be considered.
 TOKEN = "YOUR-SLACK-TOKEN-HERE"  # Look at https://api.slack.com/web#authentication
 REALLY_DELETE = False  # Set to True to actually delete files, otherwise it's a dry run.
 
