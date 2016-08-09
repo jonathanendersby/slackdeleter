@@ -1,6 +1,12 @@
 # SlackDeleter
 Python script to delete Slack files that meet a specific age and size criteria.
 
+## Requirements:
+* Click
+* Requests
+
+Both are pip installable.
+
 # Usage
 <pre>
 $ python slackdeleter.py --help
