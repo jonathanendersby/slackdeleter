@@ -17,12 +17,13 @@ Options:
 
 # In Action
 <pre>
-ox:slackdeleter jonathan$ python slackdeleter.py
+$ python slackdeleter.py
 Slack Test Token: xoxp-SECRET-SECRET-SECRET-SECRET
 Age of files to delete. [31]: 2
 Only delete files you created? [True]: 
 Sort by [size]: 
 Minimum filesize to delete (in kilobytes) [1000]: 100
+
 Querying Slack's Servers . 
 Files:
   Pasted image at 2016_08_07 10_08 AM.png     139.72 KB   	Firstname Lastname       	3 days ago
@@ -41,4 +42,5 @@ DELETING FILES:
   Deleting Pasted image at 2016_08_07 10_13 AM.png (101.91 KB) ...  Deleted
   Deleting Pasted image at 2016_08_07 10_11 PM.png (101.52 KB) ...  Deleted
 
-4 files deleted (463.00 KB)<pre>
+4 files deleted (463.00 KB)
+</pre>
