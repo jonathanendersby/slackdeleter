@@ -41,5 +41,4 @@ DELETING FILES:
   Deleting Pasted image at 2016_08_07 10_13 AM.png (101.91 KB) ...  Deleted
   Deleting Pasted image at 2016_08_07 10_11 PM.png (101.52 KB) ...  Deleted
 
-4 files deleted (463.00 KB)
-<pre>
+4 files deleted (463.00 KB)<pre>
