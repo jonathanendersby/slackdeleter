@@ -1,8 +1,9 @@
-import requests
 from datetime import datetime, timedelta
 import time
-import click
 import sys
+
+import requests
+import click
 
 
 def slack_call(token, url, params=None, section=None):
@@ -58,7 +59,7 @@ def fetch_files(token, days, only_created):
     pages = json['paging']['pages']
     files = json['files']
 
-    for i in range(2, pages+1):
+    for i in range(2, pages + 1):
         params['page'] = i
         # print "Fetching Files with %s" % params
         print '.',
@@ -125,7 +126,6 @@ def get_real_name(users, user_id):
 
 
 @click.command()
-
 @click.option('--token', prompt='Slack Test Token',
               help='Your Slack test token (https://api.slack.com/docs/oauth-test-tokens)',
               type=click.STRING)
@@ -181,8 +181,8 @@ def query_slack(token, days, only_created, sort, min_kb):
             real_name = get_real_name(users, f['user'])
 
             print "  %s %s\t%s\t%s" % (f['name'].ljust(np + 4), human_size(f['size']).ljust(12),
-                                         real_name.ljust(24),
-                                         aft(f['created']))
+                                       real_name.ljust(24),
+                                       aft(f['created']))
 
         print "\n%s files match your criteria. (%s)\n" % (len(delete_queue), human_size(total_bytes))
 
@@ -202,6 +202,8 @@ def query_slack(token, days, only_created, sort, min_kb):
         print "\nNo files matched your criteria."
 
     print ""
+
+
 if __name__ == '__main__':
     try:
         query_slack()
