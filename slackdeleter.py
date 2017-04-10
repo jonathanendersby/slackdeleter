@@ -5,42 +5,7 @@ import sys
 import requests
 import click
 
-
-def slack_call(token, url, params=None, section=None):
-    if params is None:
-        params = {}
-
-    params['token'] = token
-    result = requests.get(url, params=params)
-
-    if result.status_code == 200 and result.json()['ok']:
-        if section:
-            res = result.json()
-            if section in res:
-                return result.json()[section]
-            else:
-                raise Exception('Section not found in JSON response. Was looking for %s' % section)
-        else:
-            return result.json()
-
-    else:
-        raise Exception("ERROR: HTTP %s (%s)" % (result.status_code, result.json()['error']))
-
-
-def where(in_list, key, value):
-    for i in in_list:
-        if key in i and i[key] == value:
-            return i
-
-    return None
-
-
-def get_user(token):
-    return slack_call(token, 'https://slack.com/api/auth.test')
-
-
-def get_users(token):
-    return slack_call(token, 'https://slack.com/api/users.list', section='members')
+import slack
 
 
 def fetch_files(token, days, only_created):
@@ -49,13 +14,13 @@ def fetch_files(token, days, only_created):
     params = {'token': token, 'ts_to': unixtime, 'page': 1}
 
     if only_created:
-        user = get_user(token)
+        user = slack.get_user(token)
         # print "User ID: %s" % user['user_id']
         params['user'] = user['user_id']
 
     print '.',
 
-    json = slack_call(token, 'https://slack.com/api/files.list', params=params)
+    json = slack.slack_call(token, 'https://slack.com/api/files.list', params=params)
     pages = json['paging']['pages']
     files = json['files']
 
@@ -63,7 +28,7 @@ def fetch_files(token, days, only_created):
         params['page'] = i
         # print "Fetching Files with %s" % params
         print '.',
-        json = slack_call(token, 'https://slack.com/api/files.list', params=params)
+        json = slack.slack_call(token, 'https://slack.com/api/files.list', params=params)
         files += json['files']
 
     return files
@@ -116,7 +81,7 @@ def aft(timestamp):
 
 
 def get_real_name(users, user_id):
-    n = where(users, 'id', user_id)
+    n = slack.where(users, 'id', user_id)
 
     if 'profile' in n:  # Caters for deleted profiles.
         return n['profile']['real_name']
@@ -146,7 +111,7 @@ def query_slack(token, days, only_created, sort, min_kb):
 
     print "Querying Slack's Servers",
 
-    users = get_users(token)
+    users = slack.get_users(token)
 
     files = fetch_files(token, days, only_created)
 
